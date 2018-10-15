@@ -5,6 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MasterFixWeb.Models;
+using MasterFixWeb.Entities;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace MasterFixWeb.Controllers
 {
@@ -17,7 +20,14 @@ namespace MasterFixWeb.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "";
+
+            var db = new MasterFixContext();
+            var lista = db.Demos.ToList();
+                foreach (var item in lista)
+                {
+                    ViewData["Message"] += item.FooBar.ToString() + " ";
+                }
 
             return View();
         }

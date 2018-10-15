@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
+using FirebirdSql.EntityFrameworkCore.Firebird.Extensions;
+using MasterFixWeb.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,6 +17,7 @@ namespace MasterFixWeb
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -31,8 +35,10 @@ namespace MasterFixWeb
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            //var fbConnection = Configuration.GetConnectionString("FbConnection");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<MasterFixContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
