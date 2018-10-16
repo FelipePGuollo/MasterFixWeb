@@ -6,25 +6,29 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MasterFixWeb.DataContext;
+using MasterFixWeb.DataEntities;
 
 namespace MasterFixWeb.Controllers
 {
-    public class DemoesController : Controller
+    public class EntidadesController : Controller
     {
         private readonly MasterFixContext _context;
 
-        public DemoesController(MasterFixContext context)
+        public EntidadesController(MasterFixContext context)
         {
             _context = context;
         }
 
-        // GET: Demoes
-        public async Task<IActionResult> Index()
+        // GET: Entidades
+        public async Task<IActionResult> Index(int? id)
         {
-            return View(await _context.Demos.ToListAsync());
+            if (id == null)
+                id = 10;
+            var listView = await _context.Entidade.ToListAsync();
+            return View(listView.Take(id.Value));
         }
 
-        // GET: Demoes/Details/5
+        // GET: Entidades/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,37 +36,39 @@ namespace MasterFixWeb.Controllers
                 return NotFound();
             }
 
-            var demo = await _context.Demos
+            var entidade = await _context.Entidade
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (demo == null)
+            if (entidade == null)
             {
                 return NotFound();
             }
 
-            return View(demo);
+            return View(entidade);
         }
 
-        // GET: Demoes/Create
+        // GET: Entidades/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Demoes/Create
+        // POST: Entidades/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FooBar")] Demo demo)
+        public async Task<IActionResult> Create([Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,Obs")] Entidade entidade)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(demo);
+                _context.Add(entidade);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(demo);
+            return View(entidade);
         }
 
-        // GET: Demoes/Edit/5
+        // GET: Entidades/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -70,22 +76,22 @@ namespace MasterFixWeb.Controllers
                 return NotFound();
             }
 
-            var demo = await _context.Demos.FindAsync(id);
-            if (demo == null)
+            var entidade = await _context.Entidade.FindAsync(id);
+            if (entidade == null)
             {
                 return NotFound();
             }
-            return View(demo);
+            return View(entidade);
         }
 
-        // POST: Demoes/Edit/5
+        // POST: Entidades/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FooBar")] Demo demo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,Obs")] Entidade entidade)
         {
-            if (id != demo.Id)
+            if (id != entidade.Id)
             {
                 return NotFound();
             }
@@ -94,12 +100,12 @@ namespace MasterFixWeb.Controllers
             {
                 try
                 {
-                    _context.Update(demo);
+                    _context.Update(entidade);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DemoExists(demo.Id))
+                    if (!EntidadeExists(entidade.Id))
                     {
                         return NotFound();
                     }
@@ -110,10 +116,10 @@ namespace MasterFixWeb.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(demo);
+            return View(entidade);
         }
 
-        // GET: Demoes/Delete/5
+        // GET: Entidades/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -121,30 +127,30 @@ namespace MasterFixWeb.Controllers
                 return NotFound();
             }
 
-            var demo = await _context.Demos
+            var entidade = await _context.Entidade
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (demo == null)
+            if (entidade == null)
             {
                 return NotFound();
             }
 
-            return View(demo);
+            return View(entidade);
         }
 
-        // POST: Demoes/Delete/5
+        // POST: Entidades/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var demo = await _context.Demos.FindAsync(id);
-            _context.Demos.Remove(demo);
+            var entidade = await _context.Entidade.FindAsync(id);
+            _context.Entidade.Remove(entidade);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool DemoExists(int id)
+        private bool EntidadeExists(int id)
         {
-            return _context.Demos.Any(e => e.Id == id);
+            return _context.Entidade.Any(e => e.Id == id);
         }
     }
 }
