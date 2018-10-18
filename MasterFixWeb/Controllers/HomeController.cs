@@ -23,11 +23,6 @@ namespace MasterFixWeb.Controllers
             ViewData["Message"] = "";
 
             var db = new MasterFixContext();
-            var lista = db.Demos.ToList();
-                foreach (var item in lista)
-                {
-                    ViewData["Message"] += item.FooBar.ToString() + " ";
-                }
 
             return View();
         }
