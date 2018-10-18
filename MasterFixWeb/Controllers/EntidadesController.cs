@@ -28,6 +28,10 @@ namespace MasterFixWeb.Controllers
             return View(listView.Take(id.Value));
         }
 
+        public async Task<Entidade> getEntidade(int id){
+            return await _context.Entidade.FindAsync(id);
+        }
+
         // GET: Entidades/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -114,9 +118,8 @@ namespace MasterFixWeb.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(entidade);
+                return RedirectToAction(nameof(Index));
         }
 
         // GET: Entidades/Delete/5
