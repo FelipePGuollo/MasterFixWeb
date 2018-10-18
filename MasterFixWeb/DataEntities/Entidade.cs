@@ -26,14 +26,14 @@ namespace MasterFixWeb.DataEntities
         public string InscRg { get; set; }
         public byte[] Obs { get; set; }
 
-        public string getObs { get
-            {
-                string s = "";
-                foreach (var item in Obs)
-                {
-                    s += Convert.ToChar(item);
-                }
-                return s;
-            } }
+        // public string getObs { get
+        //     {
+        //         string s = "";
+        //         foreach (var item in Obs)
+        //         {
+        //             s += Convert.ToChar(item);
+        //         }
+        //         return s;
+        //     } }
     }
 }

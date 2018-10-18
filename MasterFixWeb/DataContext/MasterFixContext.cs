@@ -17,8 +17,6 @@ namespace MasterFixWeb.DataContext
         {
             _connectionString = "database=localhost:C:\\Users\\MasterCim\\Desktop\\MasterFIX\\SAMPLEDATABASE.FDB;user=sysdba;password=masterkey";
         }
-
-        public DbSet<Demo> Demos { get; set; }
         public DbSet<Entidade> Entidade { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,41 +30,28 @@ namespace MasterFixWeb.DataContext
         {
             base.OnModelCreating(modelBuilder);
 
-            var demoConf = modelBuilder.Entity<Demo>();
-            {                
-                demoConf.Property(x => x.Id).HasColumnName("ID");
-                demoConf.Property(x => x.FooBar).HasColumnName("FOOBAR");
-                demoConf.ToTable("DEMO");
-            }
-
             var entidadeConf = modelBuilder.Entity<Entidade>();
             {
                 entidadeConf.Property(x => x.Id).HasColumnName("ID_ENTIDADE");
-                entidadeConf.Property(x => x.Nome).HasColumnName("NOME");
-                entidadeConf.Property(x => x.Rua).HasColumnName("RUA");
+                entidadeConf.Property(x => x.Nome).HasColumnName("NOME").HasMaxLength(60);
+                entidadeConf.Property(x => x.Rua).HasColumnName("RUA").HasMaxLength(50);
                 entidadeConf.Property(x => x.Numero).HasColumnName("NUMERO");
-                entidadeConf.Property(x => x.Complemento).HasColumnName("COMPLEMENTO");
-                entidadeConf.Property(x => x.Bairro).HasColumnName("BAIRRO");
-                entidadeConf.Property(x => x.Cidade).HasColumnName("CIDADE");
-                entidadeConf.Property(x => x.Uf).HasColumnName("UF");
-                entidadeConf.Property(x => x.Cep).HasColumnName("CEP");
-                entidadeConf.Property(x => x.Fone1).HasColumnName("FONE1");
-                entidadeConf.Property(x => x.Fone2).HasColumnName("FONE2");
-                entidadeConf.Property(x => x.Email).HasColumnName("EMAIL");
-                entidadeConf.Property(x => x.Homepage).HasColumnName("HOMEPAGE");
-                entidadeConf.Property(x => x.Contato).HasColumnName("CONTATO");
-                entidadeConf.Property(x => x.ContatoFone).HasColumnName("CONTATO_FONE");
-                entidadeConf.Property(x => x.CnpjCpf).HasColumnName("CNPJ_CPF");
-                entidadeConf.Property(x => x.InscRg).HasColumnName("INSC_RG");
-                entidadeConf.Property(x => x.Obs).HasColumnName("OBSCONV");
+                entidadeConf.Property(x => x.Complemento).HasColumnName("COMPLEMENTO").HasMaxLength(30);
+                entidadeConf.Property(x => x.Bairro).HasColumnName("BAIRRO").HasMaxLength(30);
+                entidadeConf.Property(x => x.Cidade).HasColumnName("CIDADE").HasMaxLength(35);
+                entidadeConf.Property(x => x.Uf).HasColumnName("UF").HasMaxLength(2);
+                entidadeConf.Property(x => x.Cep).HasColumnName("CEP").HasMaxLength(10);
+                entidadeConf.Property(x => x.Fone1).HasColumnName("FONE1").HasMaxLength(14);
+                entidadeConf.Property(x => x.Fone2).HasColumnName("FONE2").HasMaxLength(14);
+                entidadeConf.Property(x => x.Email).HasColumnName("EMAIL").HasMaxLength(50);
+                entidadeConf.Property(x => x.Homepage).HasColumnName("HOMEPAGE").HasMaxLength(100);
+                entidadeConf.Property(x => x.Contato).HasColumnName("CONTATO").HasMaxLength(30);
+                entidadeConf.Property(x => x.ContatoFone).HasColumnName("CONTATO_FONE").HasMaxLength(14);
+                entidadeConf.Property(x => x.CnpjCpf).HasColumnName("CNPJ_CPF").HasMaxLength(18);
+                entidadeConf.Property(x => x.InscRg).HasColumnName("INSC_RG").HasMaxLength(20);
+                entidadeConf.Property(x => x.Obs).HasColumnName("OBS").HasMaxLength(80);
                 entidadeConf.ToTable("ENTIDADE");
             }
         }
-    }
-
-    public class Demo
-    {
-        public int Id { get; set; }
-        public string FooBar { get; set; }
     }
 }   
