@@ -1,0 +1,124 @@
+﻿<div class="modal fade" id="EntidadeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Entidade</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form id="editForm" asp-action="Edit">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" name="Id" />
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                <label name="Nome" class="control-label">Nome</label>
+                <input name="Nome" id="Nome" class="form-control form-control-sm" />
+                <span data-valmsg-for="Nome" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                <label name="InscRg" class="control-label">Inscrição Estadual - Rg</label>
+                <input name="InscRg" class="form-control form-control-sm" />
+                <span data-valmsg-for="InscRg" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                <label name="CnpjCpf" class="control-label">Cnpj - Cpf</label>
+                <input name="CnpjCpf" class="form-control form-control-sm" />
+                <span data-valmsg-for="CnpjCpf" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                <label name="Email" class="control-label">Email</label>
+                <input name="Email" class="form-control form-control-sm" />
+                <span data-valmsg-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label name="Pais" class="control-label">País</label>
+                    <input name="Pais" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Pais" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <label name="Cidade" class="control-label">Cidade</label>
+                    <input name="Cidade" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Cidade" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-1">
+                    <label name="Uf" class="control-label">Uf</label>
+                    <input name="Uf" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Uf" class="text-danger"></span>
+                </div>
+
+                <div class="form-group col-md-2">
+                    <label name="Bairro" class="control-label">Bairro</label>
+                    <input name="Bairro" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Bairro" class="text-danger"></span>
+                </div>
+            <div class="form-group col-md-3">
+                <label name="Cep" class="control-label">CEP</label>
+                <input name="Cep" class="form-control form-control-sm" />
+                <span data-valmsg-for="Cep" class="text-danger"></span>
+            </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label name="Rua" class="control-label">Rua</label>
+                    <input name="Rua" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Rua" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-1">
+                    <label name="Numero" class="control-label">Numero</label>
+                    <input name="Numero" class="form-control form-control-sm" />
+                    <span data-valmsg-for="Numero" class="text-danger"></span>
+                </div>
+            <div class="form-group col-md-3">
+                <label name="Complemento" class="control-label">Complemento</label>
+                <input name="Complemento" class="form-control form-control-sm" />
+                <span data-valmsg-for="Complemento" class="text-danger"></span>
+            </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-2">
+                <label name="Fone1" class="control-label">Fone</label>
+                <input name="Fone1" class="form-control form-control-sm" />
+                <span data-valmsg-for="Fone1" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label name="Fone2" class="control-label">Fone</label>
+                <input name="Fone2" class="form-control form-control-sm" />
+                <span data-valmsg-for="Fone2" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label name="Contato" class="control-label">Contato</label>
+                <input name="Contato" class="form-control form-control-sm" />
+                <span data-valmsg-for="Contato" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-2">
+                <label name="ContatoFone" class="control-label">Contato Fone</label>
+                <input name="ContatoFone" class="form-control form-control-sm" />
+                <span data-valmsg-for="ContatoFone" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-4">
+                <label name="Homepage" class="control-label">Homepage</label>
+                <input name="Homepage" class="form-control form-control-sm" />
+                <span data-valmsg-for="Homepage" class="text-danger"></span>
+            </div>
+            </div>
+
+            <div class="form-group">
+                <label name="Obs" class="control-label">Obs</label>
+                <input name="Obs" class="form-control form-control-sm" />
+                <span data-valmsg-for="Obs" class="text-danger"></span>
+            </div>
+            </form>
+                <input type="button" onclick="edit()" value="Save" class="btn btn-success"></button>
+                <input type="button" value="Close" class="btn btn-secondary" data-dismiss="modal"></button>
+                <input onclick="del()" value="Delete" type="button" class="btn btn-danger"></button>
+            </div>
+        </div>
+    </div>
+    </div>

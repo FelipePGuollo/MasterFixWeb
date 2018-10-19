@@ -26,6 +26,9 @@ namespace MasterFixWeb.Controllers
                 id = 10;
             return View(_context.Entidade.OrderBy(s=> s.Id).Take(id.Value));
         }
+        public PartialViewResult getListaEntidade(){
+            return PartialView("_listaEntidades", _context.Entidade.OrderBy(s=> s.Id).Take(10));
+        }
 
         public async Task<Entidade> getEntidade(int id){
             return await _context.Entidade.FindAsync(id);
@@ -37,9 +40,7 @@ namespace MasterFixWeb.Controllers
             return View();
         }
 
-        // POST: Entidades/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Criação da entidade
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,Obs")] Entidade entidade)
@@ -53,9 +54,7 @@ namespace MasterFixWeb.Controllers
             return View(entidade);
         }
 
-        // POST: Entidades/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Edição da entidade
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,Obs")] Entidade entidade)
@@ -84,7 +83,8 @@ namespace MasterFixWeb.Controllers
                     }
                 }
             }
-                return RedirectToAction(nameof(Index));
+                //Retorna a tabela após atualizar a entidade.
+                return RedirectToAction(nameof(getListaEntidade));
         }
 
         // POST: Entidades/Delete/5
