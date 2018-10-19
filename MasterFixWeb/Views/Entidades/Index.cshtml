@@ -9,7 +9,8 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-hover table-responsive table-bordered table-condensed table-striped" style="max-height:500px;">
+
+<table class="table table-hover table-bordered table-striped table-responsive" style="max-height:500px;">
     <thead>
         <tr>
             <th>
@@ -35,8 +36,8 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr data-toggle="modal" data-target="#exampleModal" onclick="modal(@Html.DisplayFor(modelItem => item.Id))">
-                <td class="col-lg-1" style="white-space:nowrap; overflow:hidden; text-overflow:clip">
+            <tr onclick="modal(@Html.DisplayFor(modelItem => item.Id))">
+                <td class="col-lg-1" style="white-space:nowrap; overflow:hidden; text-overflow: ellipsis; max-width:250px;">
                     @Html.DisplayFor(modelItem => item.Nome)
                 </td>
                 <td class="col-lg-1" style="white-space:nowrap; overflow:hidden; text-overflow:clip">
@@ -64,7 +65,7 @@
     </tbody>
 </table>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="EntidadeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,7 +75,7 @@
                 </button>
             </div>
             <div class="modal-body">
-            <form asp-action="Edit">
+            <form id="editForm" asp-action="Edit">
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" name="Id" />
@@ -180,9 +181,10 @@
                 <input name="Obs" class="form-control form-control-sm" />
                 <span data-valmsg-for="Obs" class="text-danger"></span>
             </div>
-                <input type="submit" value="Save" class="btn btn-success"/>
+                <button onclick="edit()" class="btn btn-success">Save</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-danger">Delete</button>
+                
+                <button onclick="del()" value="Delete" type="button" class="btn btn-danger">Delete</button>
             </form>
             </div>
         </div>
@@ -191,31 +193,67 @@
     </div>
 
 <script type="text/javascript">
+function del(){
+    $.ajax({
+           url: "/entidades/Delete",
+           type: "POST",
+           data: $('#editForm').serialize(),
+           async: false,
+           success: function(result)
+           {
+                $('#EntidadeModal').modal('hide');
+                    setTimeout(function(){
+                        $('body').html(result);
+                    }, 150);
+            }      
+         });
+}
+
+function edit(){
+    $.ajax({
+           url: "/entidades/edit",
+           type: "POST",
+           data: $('#editForm').serialize(), // serializes the form's elements.
+           async: false,
+           success: function(result)
+           {
+                $('#EntidadeModal').modal('hide');
+                    setTimeout(function(){
+                        $('body').html(result);
+                    }, 150);
+            }      
+         });
+}
+
 function modal(id){
 $.ajax({
-  url: "/entidades/getEntidade/" + id,
+    url: "/entidades/getEntidade/" + id,
     type: "GET",
     data: JSON,
-  success: function( result ) {
-      console.log(result);
-    $('input[name=Id]').val(result.id);
-    $('input[name=Nome]').val(result.nome);
-    $('input[name=Rua]').val(result.rua);
-    $('input[name=Numero]').val(result.numero);
-    $('input[name=Complemento]').val(result.complemento);
-    $('input[name=Bairro]').val(result.bairro);
-    $('input[name=Cidade]').val(result.cidade);
-    $('input[name=Uf]').val(result.uf);
-    $('input[name=Cep]').val(result.cep);
-    $('input[name=Fone1]').val(result.fone1);
-    $('input[name=Fone2]').val(result.fone2);
-    $('input[name=Email]').val(result.email);
-    $('input[name=Homepage]').val(result.homepage);
-    $('input[name=Contato]').val(result.contato);
-    $('input[name=ContatoFone]').val(result.contatoFone);
-    $('input[name=CnpjCpf]').val(result.cnpjCpf);
-    $('input[name=InscRg]').val(result.inscRg);
-  }
+    async: true,
+    success: function( result ) {
+        $('input[name=Id]').val(result.id);
+        $('input[name=Nome]').val(result.nome);
+        $('input[name=Rua]').val(result.rua);
+        $('input[name=Numero]').val(result.numero);
+        $('input[name=Complemento]').val(result.complemento);
+        $('input[name=Bairro]').val(result.bairro);
+        $('input[name=Cidade]').val(result.cidade);
+        $('input[name=Uf]').val(result.uf);
+        $('input[name=Cep]').val(result.cep);
+        $('input[name=Fone1]').val(result.fone1);
+        $('input[name=Fone2]').val(result.fone2);
+        $('input[name=Email]').val(result.email);
+        $('input[name=Homepage]').val(result.homepage);
+        $('input[name=Contato]').val(result.contato);
+        $('input[name=ContatoFone]').val(result.contatoFone);
+        $('input[name=CnpjCpf]').val(result.cnpjCpf);
+        $('input[name=InscRg]').val(result.inscRg);
+        $('#EntidadeModal').modal('toggle');
+  },
+    error: function() { 
+        alert("Connection failed, please try again."); 
+    }
 });
 }
 </script>

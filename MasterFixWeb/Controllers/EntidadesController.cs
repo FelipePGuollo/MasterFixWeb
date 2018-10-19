@@ -20,34 +20,15 @@ namespace MasterFixWeb.Controllers
         }
 
         // GET: Entidades
-        public async Task<IActionResult> Index(int? id)
+        public IActionResult Index(int? id)
         {
             if (id == null)
                 id = 10;
-            var listView = await _context.Entidade.ToListAsync();
-            return View(listView.Take(id.Value));
+            return View(_context.Entidade.OrderBy(s=> s.Id).Take(id.Value));
         }
 
         public async Task<Entidade> getEntidade(int id){
             return await _context.Entidade.FindAsync(id);
-        }
-
-        // GET: Entidades/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var entidade = await _context.Entidade
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (entidade == null)
-            {
-                return NotFound();
-            }
-
-            return View(entidade);
         }
 
         // GET: Entidades/Create
@@ -68,22 +49,6 @@ namespace MasterFixWeb.Controllers
                 _context.Add(entidade);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(entidade);
-        }
-
-        // GET: Entidades/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var entidade = await _context.Entidade.FindAsync(id);
-            if (entidade == null)
-            {
-                return NotFound();
             }
             return View(entidade);
         }
@@ -120,24 +85,6 @@ namespace MasterFixWeb.Controllers
                 }
             }
                 return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Entidades/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var entidade = await _context.Entidade
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (entidade == null)
-            {
-                return NotFound();
-            }
-
-            return View(entidade);
         }
 
         // POST: Entidades/Delete/5
