@@ -1,5 +1,5 @@
 ﻿using FirebirdSql.EntityFrameworkCore.Firebird.Extensions;
-using MasterFixWeb.DataEntities;
+using MasterFixWeb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System;

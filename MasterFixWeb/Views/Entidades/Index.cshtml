@@ -10,8 +10,10 @@
 
 @await Html.PartialAsync("_listaEntidades")
 
+<div class="modal fade" id="EntidadeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
-@await Html.PartialAsync("_editEntidade")
+
+</div>
 
 
 
@@ -33,6 +35,8 @@ function del(){
 }
 
 function edit(){
+        $.validator.unobtrusive.parse('form[id=editForm]');
+        if ($('form[id=editForm]').valid()) {
     $.ajax({
            url: "/entidades/edit",
            type: "POST",
@@ -40,39 +44,23 @@ function edit(){
            async: true,
            success: function(result)
            {
-               console.log(result);
                 $('#EntidadeModal').modal('hide');
                     setTimeout(function(){
                         $('div[name=_partialEntidade]').replaceWith(result);
                     }, 150);
             }      
          });
+        }
 }
 
 function modal(id){
 $.ajax({
-    url: "/entidades/getEntidade/" + id,
-    type: "GET",
-    data: JSON,
+    url: "/entidades/getEntidade",
+    type: "POST",
+    data: {id : id},
     async: true,
     success: function( result ) {
-        $('input[name=Id]').val(result.id);
-        $('input[name=Nome]').val(result.nome);
-        $('input[name=Rua]').val(result.rua);
-        $('input[name=Numero]').val(result.numero);
-        $('input[name=Complemento]').val(result.complemento);
-        $('input[name=Bairro]').val(result.bairro);
-        $('input[name=Cidade]').val(result.cidade);
-        $('input[name=Uf]').val(result.uf);
-        $('input[name=Cep]').val(result.cep);
-        $('input[name=Fone1]').val(result.fone1);
-        $('input[name=Fone2]').val(result.fone2);
-        $('input[name=Email]').val(result.email);
-        $('input[name=Homepage]').val(result.homepage);
-        $('input[name=Contato]').val(result.contato);
-        $('input[name=ContatoFone]').val(result.contatoFone);
-        $('input[name=CnpjCpf]').val(result.cnpjCpf);
-        $('input[name=InscRg]').val(result.inscRg);
+        $('div[id=EntidadeModal]').replaceWith(result);
         $('#EntidadeModal').modal('toggle');
   },
     error: function() { 

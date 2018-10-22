@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MasterFixWeb.DataContext;
-using MasterFixWeb.DataEntities;
+using MasterFixWeb.Models;
 
 namespace MasterFixWeb.Controllers
 {
@@ -23,15 +23,17 @@ namespace MasterFixWeb.Controllers
         public IActionResult Index(int? id)
         {
             if (id == null)
-                id = 10;
-            return View(_context.Entidade.OrderBy(s=> s.Id).Take(id.Value));
+                id = 35;
+            return PartialView(_context.Entidade.OrderBy(s=> s.Id).Take(id.Value));
         }
         public PartialViewResult getListaEntidade(){
-            return PartialView("_listaEntidades", _context.Entidade.OrderBy(s=> s.Id).Take(10));
+            return PartialView("_listaEntidades", _context.Entidade.OrderBy(s=> s.Id).Take(35));
         }
 
-        public async Task<Entidade> getEntidade(int id){
-            return await _context.Entidade.FindAsync(id);
+
+        [HttpPost, ActionName("getEntidade")]
+        public PartialViewResult getEditEntidade(int id){
+            return PartialView("_editEntidade", _context.Entidade.Find(id));
         }
 
         // GET: Entidades/Create
