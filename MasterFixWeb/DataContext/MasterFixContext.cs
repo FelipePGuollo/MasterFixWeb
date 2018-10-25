@@ -15,7 +15,7 @@ namespace MasterFixWeb.DataContext
 
         public MasterFixContext()
         {
-            _connectionString = "database=localhost:C:\\Users\\MasterCim\\Desktop\\MasterFIX\\SAMPLEDATABASE.FDB;user=sysdba;password=masterkey;Charset=NONE";
+            _connectionString = @"database=localhost/3050:/home/pc/Desktop/FbDbs/db.fdb ;user=sysdba;password=masterkey;Charset=NONE";
         }
         public DbSet<Entidade> Entidade { get; set; }
 

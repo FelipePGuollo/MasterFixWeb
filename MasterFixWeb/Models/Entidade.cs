@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace MasterFixWeb.Models
@@ -99,16 +100,29 @@ namespace MasterFixWeb.Models
         public int Produto2 { get; set; }
         [NotMapped]
         public int IdVendedor { get; set; }
+        [NotMapped]
+        public string getObs {
+            get{
+                if(Obs == null)
+                    return "";
 
-        // public string getObs { get
-        //     {
-        //         string s = "";
-        //         foreach (var item in Obs)
-        //         {
-        //             s += Convert.ToChar(item);
-        //         }
-        //         return s;
-        //     } }
+                string s = "";
+                foreach (var item in Obs)
+                     s += Convert.ToChar(item);
+                return s;
+                }
+            set{
+                if(value != "")
+                {
+                    byte[] bytes = Encoding.ASCII.GetBytes(value);
+                    Obs = bytes;
+                }
+                else
+                {
+                    Obs = null;
+                }
+                }
+        }
 
 
     }

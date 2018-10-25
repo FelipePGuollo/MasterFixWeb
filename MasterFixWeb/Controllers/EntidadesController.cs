@@ -59,7 +59,7 @@ namespace MasterFixWeb.Controllers
         // POST: Edição da entidade
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,Obs")] Entidade entidade)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Rua,Numero,Complemento,Bairro,Cidade,Uf,Cep,Fone1,Fone2,Email,Homepage,Contato,ContatoFone,CnpjCpf,InscRg,getObs")] Entidade entidade)
         {
             if (id != entidade.Id)
             {
@@ -68,6 +68,7 @@ namespace MasterFixWeb.Controllers
 
             if (ModelState.IsValid)
             {
+                //entidade.Obs = System.Text.Encoding.ASCII.GetBytes(entidade.getObs);
                 try
                 {
                     _context.Update(entidade);
