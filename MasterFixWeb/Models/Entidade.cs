@@ -106,15 +106,13 @@ namespace MasterFixWeb.Models
                 if(Obs == null)
                     return "";
 
-                string s = "";
-                foreach (var item in Obs)
-                     s += Convert.ToChar(item);
+                string s = Encoding.UTF8.GetString(Obs);
                 return s;
                 }
             set{
                 if(value != "")
                 {
-                    byte[] bytes = Encoding.ASCII.GetBytes(value);
+                    byte[] bytes = Encoding.UTF8.GetBytes(value);
                     Obs = bytes;
                 }
                 else
