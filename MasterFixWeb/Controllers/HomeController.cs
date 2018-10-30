@@ -22,8 +22,6 @@ namespace MasterFixWeb.Controllers
         {
             ViewData["Message"] = "";
 
-            var db = new MasterFixContext();
-
             return View();
         }
 

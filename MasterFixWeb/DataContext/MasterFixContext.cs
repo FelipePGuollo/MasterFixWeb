@@ -6,25 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace MasterFixWeb.DataContext
 {
     public class MasterFixContext : DbContext
     {
-        readonly string _connectionString;
 
-        public MasterFixContext()
+        public MasterFixContext(DbContextOptions<MasterFixContext> options) :base(options)
         {
-            _connectionString = @"database=localhost/3050:/home/pc/Desktop/FbDbs/db.fdb ;user=sysdba;password=masterkey;Charset=NONE";
         }
         public DbSet<Entidade> Entidade { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-            optionsBuilder.UseFirebird(_connectionString);
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -49,7 +41,7 @@ namespace MasterFixWeb.DataContext
                 entidadeConf.Property(x => x.ContatoFone).HasColumnName("CONTATO_FONE").HasMaxLength(14);
                 entidadeConf.Property(x => x.CnpjCpf).HasColumnName("CNPJ_CPF").HasMaxLength(18);
                 entidadeConf.Property(x => x.InscRg).HasColumnName("INSC_RG").HasMaxLength(20);
-                entidadeConf.Property(x => x.Obs).HasColumnName("OBS").HasMaxLength(80);
+                entidadeConf.Property(x => x.Obs).HasColumnName("OBS").HasMaxLength(80).HasConversion(obs => Encoding.UTF8.GetBytes(obs), obs => Encoding.UTF8.GetString(obs));
                 entidadeConf.ToTable("ENTIDADE");
             }
         }
