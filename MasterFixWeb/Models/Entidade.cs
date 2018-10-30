@@ -29,7 +29,7 @@ namespace MasterFixWeb.Models
         public string ContatoFone { get; set; }
         public string CnpjCpf { get; set; }
         public string InscRg { get; set; }
-        public byte[] Obs { get; set; }
+        public string Obs { get; set; }
         [NotMapped]
         public byte[] ObsConv { get; set; }
         [NotMapped]
@@ -100,28 +100,5 @@ namespace MasterFixWeb.Models
         public int Produto2 { get; set; }
         [NotMapped]
         public int IdVendedor { get; set; }
-        [NotMapped]
-        public string getObs {
-            get{
-                if(Obs == null)
-                    return "";
-
-                string s = Encoding.UTF8.GetString(Obs);
-                return s;
-                }
-            set{
-                if(value != "")
-                {
-                    byte[] bytes = Encoding.UTF8.GetBytes(value);
-                    Obs = bytes;
-                }
-                else
-                {
-                    Obs = null;
-                }
-                }
-        }
-
-
     }
 }
