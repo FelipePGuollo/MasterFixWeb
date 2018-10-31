@@ -54,7 +54,7 @@
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">
-        <div name="partialBody">
+        <div name="_partialBody">
         @RenderBody()
         </div>
         <br>
@@ -80,7 +80,7 @@ function loadPages(rota){
            async: true,
            success: function(result)
            {
-                $('div[name=partialBody]').replaceWith(result);
+                $('div[name=_partialBody]').replaceWith(result);
             }      
          });
 }

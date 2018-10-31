@@ -1,8 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
-
-<h2>Index</h2>
+﻿<h2>Index</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -18,40 +14,6 @@
 
 
 <script type="text/javascript">
-function del(){
-    $.ajax({
-           url: "/entidades/Delete",
-           type: "POST",
-           data: $('#editForm').serialize(),
-           async: false,
-           success: function(result)
-           {
-                $('#EntidadeModal').modal('hide');
-                    setTimeout(function(){
-                        $('body').html(result);
-                    }, 150);
-            }      
-         });
-}
-
-function edit(){
-        $.validator.unobtrusive.parse('form[id=editForm]');
-        if ($('form[id=editForm]').valid()) {
-    $.ajax({
-           url: "/entidades/edit",
-           type: "POST",
-           data: $('#editForm').serialize(), // serializes the form's elements.
-           async: true,
-           success: function(result)
-           {
-                $('#EntidadeModal').modal('hide');
-                    setTimeout(function(){
-                        $('div[name=_partialEntidade]').replaceWith(result);
-                    }, 150);
-            }      
-         });
-        }
-}
 
 function modal(id){
 $.ajax({
@@ -68,4 +30,10 @@ $.ajax({
     }
 });
 }
+
+$( document ).ready(function() {
+  $(this).attr('title', "Entidades - MasterFIX");
+});
 </script>
+
+</div>
